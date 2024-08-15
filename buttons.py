@@ -9,3 +9,7 @@ size_panel = ReplyKeyboardMarkup(resize_keyboard=True,
 
 question = ReplyKeyboardMarkup(resize_keyboard=True)
 question.add("Да").add("Нет")
+
+submit_buttons = ReplyKeyboardMarkup(resize_keyboard=True).add(
+    KeyboardButton('Да'), KeyboardButton('Нет')
+)

@@ -95,7 +95,7 @@ async def cancel_fsm(message: types.Message, state: FSMContext):
                              reply_markup=kb)
 
 
-def register_fsm(dp: Dispatcher):
+def register_fsm_store(dp: Dispatcher):
     dp.register_message_handler(cancel_fsm, Text(equals='Отмена',
                                                  ignore_case=True),
                                                  state="*")
