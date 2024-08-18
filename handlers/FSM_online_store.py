@@ -10,6 +10,7 @@ class FSM_store(StatesGroup):
     name_product = State()
     info_product = State()
     size_product = State()
+    collection = State()
     price_product = State()
     category_product = State()
     id_product = State()
@@ -44,7 +45,14 @@ async def load_size_product(message: types.Message, state: FSMContext):
         data_store['size_product'] = message.text
 
     await FSM_store.next()
-    await message.answer(text='Укажите цену товара: ')
+    await message.answer(text='укажите к какой коллекции принадлежит товар: ')
+
+async def load_collection(message: types.Message, state: FSMContext):
+    async with state.proxy() as data:
+        data['collection'] = message.text
+
+    await FSM_store.next()
+    await message.answer(text='Укажите цену товара:')
 
 
 async def load_price_product(message: types.Message, state: FSMContext):
@@ -106,6 +114,12 @@ async def submit(message: types.Message, state: FSMContext):
                 category=data_store['category_product']
             )
 
+            await db_main.sql_insert_collection(
+                id_product=data_store['id_product'],
+                collection=data_store['collection']
+
+            )
+
         await message.answer(text='Ваши данные сохранены!', reply_markup=kb)
         await state.finish()
     else:
@@ -129,6 +143,7 @@ def store_fsm(dp: Dispatcher):
     dp.register_message_handler(load_name_product, state=FSM_store.name_product)
     dp.register_message_handler(load_info_product, state=FSM_store.info_product)
     dp.register_message_handler(load_size_product, state=FSM_store.size_product)
+    dp.register_message_handler(load_collection, state=FSM_store.collection)
     dp.register_message_handler(load_price_product, state=FSM_store.price_product)
     dp.register_message_handler(load_category_product, state=FSM_store.category_product)
     dp.register_message_handler(load_id_product, state=FSM_store.id_product)

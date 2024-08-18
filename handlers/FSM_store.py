@@ -8,6 +8,7 @@ class FSM_store(StatesGroup):
     product = State()
     size = State()
     category = State()
+    collection = State()
     price = State()
     photo = State()
     out = State()
@@ -44,7 +45,11 @@ async def load_category(message: types.Message, state: FSMContext):
         data['category'] = message.text
 
     await FSM_store.next()
-    await message.answer(text='Укажите цену товара:')
+    await message.answer(text='К какой коллекции принадлежит товар?:')
+
+
+
+
 
 
 async def load_price(message: types.Message, state: FSMContext):

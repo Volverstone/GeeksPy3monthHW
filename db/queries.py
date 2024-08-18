@@ -45,4 +45,16 @@ INSERT_PRODUCT_DETAILS = '''
 
 OUTPUT_PRODUCT = '''SELECT * FROM products WHERE id = ?'''
 
+CREATE_TABLE_COLLECTION_PRODUCTS = """
+    CREATE TABLE IF NOT EXISTS collection_products
+    (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_product VARCHAR(255),
+    collection VARCHAR(255)
+    )
+
+"""
+INSERT_COLLECTION_PRODUCTS = '''
+    INSERT INTO collection_products(id_product,collection)
+    VALUES (?,?)'''
 
