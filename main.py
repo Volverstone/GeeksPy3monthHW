@@ -6,6 +6,7 @@ from db import db_main
 from handlers import admin_bot
 from aiogram import types
 from config import admin
+from Google_sheets import sheets
 
 async def on_startup(_):
     for i in admin:
@@ -19,10 +20,11 @@ async def on_shutdown(_):
 # commands.register_commands(dp)
 # quiz.register_quiz(dp)
 # FSM_reg.register_fsm(dp)
-# FSM_online_store.store_fsm(dp)
+FSM_online_store.store_fsm(dp)
 # notification.register_notification(dp)
 # send_products.register_send_products_handler(dp)
 webapp.register_webapp_handlers(dp)
+sheets.register_sheets(dp)
 
 admin_bot.register_admin(dp)
 

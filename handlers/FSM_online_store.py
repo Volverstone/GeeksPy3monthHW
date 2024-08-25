@@ -4,6 +4,7 @@ from aiogram.dispatcher.filters import Text
 import buttons
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from db import db_main
+from Google_sheets.sheets import update_google_sheet_products
 
 
 class FSM_store(StatesGroup):
@@ -119,6 +120,22 @@ async def submit(message: types.Message, state: FSMContext):
                 collection=data_store['collection']
 
             )
+
+            name = data_store['name_product']
+            size = data_store['size_product']
+            price = data_store['price_product']
+            id_product = data_store['id_product']
+            category = data_store['category_product']
+            info_product = data_store['info_product']
+            collection = data_store['collection']
+
+            update_google_sheet_products(name=name,
+                                         size=size,
+                                         price=price,
+                                         id_product=id_product,
+                                         category=category,
+                                         info_product=info_product,
+                                         collection=collection)
 
         await message.answer(text='Ваши данные сохранены!', reply_markup=kb)
         await state.finish()
