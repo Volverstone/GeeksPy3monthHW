@@ -21,10 +21,28 @@ def update_google_sheet_products(name, size, price, id_product, category, info_p
     except Exception as e:
         print(e)
 
+def update_google_sheet_regs(name, age, email, gender, phone):
+    try:
+        range_name = "Лист1!A:E"
+
+        row = [name, age, email, gender, phone]
+
+        service.spreadsheets().values().append(
+            spreadsheetId=google_sheet_id_users,
+            range=range_name,
+            valueInputOption='RAW',
+            insertDataOption='INSERT_ROWS',
+            body={'values': [row]}
+        ).execute()
+        print(row)
+
+    except Exception as e:
+        print(e)
+
 
 def get_google_sheets_data():
     try:
-        range_name = "Лист1!A:G"
+        range_name = "Лист1!A:E"
         result = service.spreadsheets().values().get(
             spreadsheetId=google_sheet_id_users,
             range=range_name

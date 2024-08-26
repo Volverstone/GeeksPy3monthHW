@@ -5,6 +5,7 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 import buttons
 import re
 from aiogram.types import ReplyKeyboardRemove
+from Google_sheets.sheets import update_google_sheet_regs
 
 class FSM_reg(StatesGroup):
     fullname = State()
@@ -71,6 +72,18 @@ async def load_photo(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data['photo'] = message.photo[-1].file_id
 
+        name = data['fullname']
+        age = data['age']
+        email = data['email']
+        gender = data['gender']
+        phone = data['phone']
+
+        update_google_sheet_regs(name=name,
+                                 age=age,
+                                 email=email,
+                                 gender=gender,
+                                 phone=phone)
+
     kb = types.ReplyKeyboardRemove()
 
     await message.answer_photo(photo=data['photo'],
@@ -80,6 +93,9 @@ async def load_photo(message: types.Message, state: FSMContext):
                                         f"Пол - {data['gender']}\n"
                                         f"Номер тел - {data['phone']}\n"
                                         )
+
+
+
     await message.answer(text='Спасибо за регистрацию!)', reply_markup=kb)
     await state.finish()
 
