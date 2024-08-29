@@ -10,7 +10,7 @@ services:
       - db_data:/app/db
     command: python main.py
 
-  volumes:
-    db_data:
+volumes:
+  db_data:
 
 #docker-compose up --build

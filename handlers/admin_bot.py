@@ -17,7 +17,7 @@ words = ['дурак', 'дебил', 'кретин', 'даун', 'амеба', '
 #     message_text = message.text.lower()
 #     for word in words:
 #         if word in message_text:
-#             await message.answer("Не ругайся!")
+#            . await message.answer("Не ругайся!")
 #             break
 
 warnings = {}
